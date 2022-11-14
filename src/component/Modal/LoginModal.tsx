@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import {
   Modal,
   Input,
@@ -7,6 +7,7 @@ import {
   Button,
   Text,
   Link,
+  useInput,
 } from "@nextui-org/react";
 import { EmailSecurity, LockOne } from "@icon-park/react";
 
@@ -20,14 +21,46 @@ function loginValidation(setVisible: any, message: string) {
 }
 
 export default function LoginModal() {
+  const dummy = [
+    {
+      email: "dannyphang64@gmail.com",
+      password: "123",
+    },
+    {
+      email: "456@gmail.com",
+      password: "456",
+    },
+  ];
+  const { value, bindings } = useInput("");
   const [visible, setVisible] = useState(false);
   const handler = () => setVisible(true);
   const closeHandler = () => {
-    // setVisible(false);
-    // console.log("closed");
+    setVisible(false);
   };
   const [message, setMessage] = useState("");
   const [updated, setUpdated] = useState(message);
+
+  const validater = useCallback((value: any) => {
+    if (!value) {
+      return;
+    }
+    const user = dummy.find((user) => user.password === value);
+    if (user) {
+      return "valid";
+    } else {
+      return "invalid";
+    }
+  }, []);
+
+  const helper = useMemo(() => {
+    if (!value) return;
+    const invalid = validater(value);
+    return {
+      invalid,
+      text: invalid ?? "Enter a valid password",
+      color: invalid ? (invalid ? "success" : "error") : undefined,
+    };
+  }, [value, validater]);
 
   const handleChange = (event: {
     target: { value: React.SetStateAction<string> };
@@ -71,7 +104,7 @@ export default function LoginModal() {
             clearable
             bordered
             fullWidth
-            color="primary"
+            color={helper?.color}
             size="lg"
             placeholder="Password"
             onChange={handleChange}
