@@ -1,6 +1,6 @@
 import * as React from "react";
 import "./App.css";
-import { NextUIProvider } from "@nextui-org/react";
+import { createTheme, NextUIProvider } from "@nextui-org/react";
 import InputURL from "./component/Input/InputURL";
 import NavBar from "./component/NavBar/NavBar";
 import ResultTable from "./component/Table/ResultTable";
@@ -19,8 +19,22 @@ function App() {
     mode: "bouncy",
   });
 
+  const defaultTheme = createTheme({
+    type: "default",
+    theme: {
+      colors: {
+        color1: "red",
+      },
+      fonts: {
+        mono: "Menlo, monospace",
+        courier: "Courier, monospace",
+        anonymous: "'Anonymous Pro', monospace",
+      },
+    },
+  });
+
   return (
-    <NextUIProvider>
+    <NextUIProvider theme={defaultTheme}>
       <div
         className="App"
         style={{

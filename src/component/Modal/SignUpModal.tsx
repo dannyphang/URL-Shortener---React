@@ -9,6 +9,8 @@ import {
   Link,
 } from "@nextui-org/react";
 import { EmailSecurity, LockOne, Woman } from "@icon-park/react";
+import GoogleLogin from "../Button/GoogleLogin";
+import TypingText from "../Label/TypingText";
 
 export default function LoginModal() {
   const [visible, setVisible] = React.useState(false);
@@ -17,10 +19,11 @@ export default function LoginModal() {
     setVisible(false);
     console.log("closed");
   };
+
   return (
     <div>
       <Button flat auto onClick={handler}>
-        Sign Up
+        Sign In
       </Button>
       <Modal
         closeButton
@@ -31,7 +34,13 @@ export default function LoginModal() {
       >
         <Modal.Header>
           <Text id="modal-title" size={18}>
-            <Text h3>Sign Up</Text>
+            <Text h3>
+              {TypingText(
+                "Sign InSign InSign InSign InSign InSign InSign InSign InSign InSign InSign In",
+                40,
+                Infinity
+              )}
+            </Text>
           </Text>
         </Modal.Header>
         <Modal.Body>
@@ -83,14 +92,7 @@ export default function LoginModal() {
             contentLeft={<LockOne theme="outline" size="20" fill="#333" />}
           />
 
-          {/* <Row justify="space-between">
-            <Checkbox>
-              <Text size={14}>Remember me</Text>
-            </Checkbox>
-            <Link color="text" href="#">
-              <Text size={14}>Forget Password</Text>
-            </Link>
-          </Row> */}
+          <GoogleLogin />
         </Modal.Body>
         <Modal.Footer>
           <Button auto flat color="error" onClick={closeHandler}>
