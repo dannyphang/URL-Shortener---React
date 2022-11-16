@@ -1,5 +1,6 @@
 import { Table, Button, Link } from "@nextui-org/react";
 import { Copy } from "@icon-park/react";
+import { HiQrCode } from "react-icons/hi2";
 
 export default function ResultTable() {
   const title = "Google";
@@ -19,7 +20,7 @@ export default function ResultTable() {
               padding: "0 10px",
             }}
           >
-            <Link block color="primary" href={link}>
+            <Link block color="primary" href={link} target="_blank">
               {link}
             </Link>
           </Table.Cell>
@@ -28,19 +29,34 @@ export default function ResultTable() {
               paddingLeft: "5px",
             }}
           >
-            <Button
-              auto
-              light
-              icon={
-                <Copy
-                  size="20"
-                  style={{
-                    marginTop: "7px",
-                  }}
-                />
-              }
-              data-blobity-tooltip="Copy.."
-            />
+            <Button.Group>
+              <Button
+                auto
+                light
+                icon={
+                  <Copy
+                    size="20"
+                    style={{
+                      marginTop: "7px",
+                    }}
+                  />
+                }
+                data-blobity-tooltip="Copy.."
+              />
+              <Button
+                auto
+                light
+                icon={
+                  <HiQrCode
+                    size="20"
+                    style={{
+                      marginBottom: "2px",
+                    }}
+                  />
+                }
+                data-blobity-tooltip="QR"
+              />
+            </Button.Group>
           </Table.Cell>
         </Table.Row>
       </Table.Body>
